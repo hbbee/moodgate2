@@ -1,23 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Import useEffect
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-// import Background from '../components/Background'; // Keep this commented out/removed
+import { useLocation } from 'react-router-dom'; // Import useLocation
 import Chatbot from '../components/Chatbot';
 
 const Home = () => {
-  // Removed showChat state as the Chatbot is now shown based on navigation/route
-  // const [showChat, setShowChat] = useState(false);
+  // State to control whether the chatbot is shown
+  const [showChat, setShowChat] = useState(false);
 
-  const navigate = useNavigate(); // Get the navigate function
+  // Get location object to access navigation state
+  const location = useLocation();
 
   // Define animation variants for the title for cleaner code
   const titleVariants = {
     // Initial state when the chat is closed
     initial: { fontSize: '4rem', y: 0 },
-    // State when the chat is open - Adjusted y position and removed font size change
-    // This keeps the title visible and in a fixed position relative to the top
-    // Note: The title animation might need adjustment depending on whether you show chat on Home or a separate page after questionnaire
-    chatOpen: { fontSize: '4rem', y: -200 }, // Adjusted y and kept font size
+    // State when the chat is open
+    chatOpen: { fontSize: '2rem', y: -280 },
     // Subtle idle animation when the chat is closed
     idle: {
       opacity: [1, 0.95, 1], // Subtle fade effect
@@ -31,7 +29,17 @@ const Home = () => {
     }
   };
 
-  // Removed the useEffect hook that was listening for the Spline event
+  // Effect to check if the user navigated from the questionnaire
+  useEffect(() => {
+    // Check if the navigation state has the 'fromQuestionnaire' flag
+    if (location.state?.fromQuestionnaire) {
+      setShowChat(true); // Automatically show the chat if coming from the questionnaire
+      // Optional: Clear the state so refreshing the page doesn't reopen chat
+      // window.history.replaceState({}, document.title); // Simple way to clear state
+      // Or use navigate('/', { replace: true }); if you want to clear state and replace history entry
+    }
+  }, [location.state]); // Rerun this effect if the location state changes
+
 
   return (
     // Relative positioning for z-index to work correctly with the fixed background
@@ -57,9 +65,8 @@ const Home = () => {
           variants={titleVariants}
           // Set initial state
           initial="initial"
-          // Animate based on whether you are on the home page (not showing chat here anymore)
-          // You might adjust this animation based on your new flow
-          animate="initial" // Always initial state on Home page now
+          // Animate based on showChat state. If chat is not open, chain initial and idle animations.
+          animate={showChat ? "chatOpen" : ["initial", "idle"]}
           // Use a spring transition for smoother movement between states
           transition={{ type: "spring", stiffness: 80, damping: 10 }} // Adjust stiffness/damping for feel
           // Apply text color and other styles. Text shadow is handled in style.css.
@@ -69,40 +76,52 @@ const Home = () => {
         </motion.h1>
 
         {/* AnimatePresence allows exit animations for components being removed */}
-        {/* Button to navigate to the questionnaire page */}
+        {/* Button to toggle chatbox - only shown if chat is NOT shown */}
         <AnimatePresence>
-          {/* Render the button */}
+          {/* Render the button only when chat is NOT shown */}
+          {!showChat && (
             <motion.button
               // Initial state when entering (starts slightly lower and faded)
               initial={{ opacity: 0, y: 20 }}
               // Animation when entering (fades in and moves up)
               animate={{ opacity: 1, y: 0 }}
+              // Animation when exiting (fades out and scales down)
+              exit={{ opacity: 0, scale: 0.8 }}
               // Animation on hover (slight scale increase and subtle border glow)
               whileHover={{ scale: 1.05, borderColor: 'rgba(255, 255, 255, 0.5)' }}
-              // Animation on tap (slight scale decrease)
               whileTap={{ scale: 0.95 }}
               // Click handler to navigate to the questionnaire page
-              onClick={() => navigate('/questionnaire')} // Navigate to the new page
+              // This button now navigates to the questionnaire page
+              onClick={() => navigate('/questionnaire')} // Use navigate to go to questionnaire page
               // Styling classes for the button
               className="mt-12 px-8 py-4 text-xl bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all shadow-lg border border-transparent"
             >
               Take the Test {/* Button text */}
             </motion.button>
+          )}
         </AnimatePresence>
 
-        {/*
-          Removed the Chatbot component from the Home page.
-          It will be rendered on the Home page *after* the questionnaire is completed,
-          or you could navigate to a separate chat page.
-          For now, it navigates back to Home after questionnaire, where you could add logic
-          to check if the questionnaire was completed and then show the chat.
-          Alternatively, we can create a dedicated '/chat' route. Let's do that next for clarity.
-        */}
-        {/*
+
+        {/* AnimatePresence allows exit animations for components being removed */}
+        {/* Render the Chatbot component when showChat is true */}
         <AnimatePresence>
-          {showChat && <Chatbot />}
+          {showChat && (
+             <motion.div
+               key="chatbot" // Unique key for AnimatePresence
+               initial={{ opacity: 0, y: 50 }} // Start lower for entry animation
+               animate={{ opacity: 1, y: 0 }}
+               exit={{ opacity: 0, y: -50 }} // Exit upwards
+               transition={{ duration: 0.5 }}
+               className="w-full max-w-2xl flex flex-col flex-grow mt-8" // Add margin top and flex properties
+             >
+                {/* Container for messages - allows scrolling */}
+                <div className="flex-grow overflow-y-auto pr-2 custom-scrollbar"> {/* Added flex-grow, overflow-y-auto, pr-2, custom-scrollbar */}
+                   <Chatbot /> {/* Chatbot content will render here */}
+                </div>
+                {/* Input area is now managed by the Chatbot component itself */}
+             </motion.div>
+          )}
         </AnimatePresence>
-        */}
       </div>
     </div>
   );
