@@ -18,7 +18,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "framer-motion": "^11.0.8",
+    "framer-motion": "^11.18.2",
     "lucide-react": "^0.344.0",
     "openai": "^4.98.0",
     "react": "^18.3.1",

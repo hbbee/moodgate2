@@ -1,4 +1,4 @@
-// src/components/Header.jsx or Header.tsx
+// src/components/Header.tsx
 import React, { useState, useEffect } from 'react';
 
 function Header() {
@@ -47,7 +47,7 @@ function Header() {
             <li>
               {/* Navigation Link with subtle hover effect and text color change on scroll */}
               <a
-                href="#features" // Link to the features section
+                href="#features" // Link to the features section (if you have one on the Home page)
                 className={`hover:text-blue-400 transition-colors duration-300 ${
                   isScrolled ? 'text-gray-700' : 'text-white' // Change text color on scroll
                 }`}
@@ -57,7 +57,7 @@ function Header() {
             </li>
             <li>
               <a
-                href="#testimonials" // Link to the testimonials section
+                href="#testimonials" // Link to the testimonials section (if you have one)
                 className={`hover:text-blue-400 transition-colors duration-300 ${
                   isScrolled ? 'text-gray-700' : 'text-white' // Change text color on scroll
                 }`}
@@ -67,8 +67,9 @@ function Header() {
             </li>
             <li>
               {/* Call to Action Button in the Header */}
+              {/* This button might navigate to the questionnaire or a sign-up page */}
               <a
-                href="#cta" // Link to the call to action section
+                href="#cta" // Link to a relevant section or page
                 className={`bg-white text-blue-600 font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition duration-300 shadow-md`}
               >
                 Get Started

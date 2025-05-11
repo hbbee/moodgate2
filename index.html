@@ -30,17 +30,24 @@
             --color-overlay-vignette: rgba(0, 0, 0, 0.3); /* Dark overlay for vignette */
         }
 
+        /*
+          Style the root element where your React app is mounted.
+          This needs to be positioned and have a higher z-index
+          than the fixed Spline viewer to appear on top.
+        */
         #root {
-            position: relative; /* Ensure #root content is above the background */
-            z-index: 1; /* Higher z-index than the Spline viewer (which is z-index: 0) */
+            position: relative; /* Use relative or absolute positioning */
+            z-index: 1; /* Ensure #root content is above the Spline viewer (which is z-index: 0) */
             min-height: 100vh; /* Ensure #root covers the background height */
+            /* Add padding-top to prevent content from being hidden behind the fixed Navbar */
+            /* We will manage padding below the Navbar within App.tsx now for better control */
+             padding-top: 0; /* Reset padding-top here */
         }
 
-        /* You will need to add padding or a content wrapper inside your app */
-        /* rendered by #root to avoid content being directly behind the edges */
-        /* and add background-color for readability over the Spline scene */
-
-        /* Style the spline-viewer custom element to act as a fixed background */
+        /*
+          Style the spline-viewer custom element to act as a fixed background.
+          It should cover the whole viewport and be behind the #root content.
+        */
         spline-viewer {
             position: fixed; /* Fix it to the viewport */
             top: 0;

@@ -5,10 +5,9 @@ body {
     /* Font is now set on body in index.html style block */
     min-height: 100vh;
     position: relative;
-    /* Base text color using CSS variable */
-    color: var(--color-primary-light);
+    /* Set a base text color for elements that don't have a specific color class */
+    color: #f0f0f0; /* Very light grey as default text color */
     font-family: 'Roboto', sans-serif; /* Ensure Roboto is applied if body style in index.html is missed */
-    /* CSS Variables are defined in index.html style block now */
 }
 
 #root {
@@ -29,32 +28,26 @@ body {
 /* .loading-overlay { ... } */
 
 
-/* --- Text Readability Styles --- */
+/* --- Text Readability Styles (Keep these) --- */
 
 /* Apply shadow to text elements for readability against the background */
 /* Target the main title (h1) */
 h1 {
-    /* Color using CSS variable */
-    color: var(--color-primary-light);
-    /* Refined text shadow */
-    text-shadow: 2px 2px 8px var(--color-primary-dark); /* Use dark color variable for shadow */
+    color: #f0f0f0; /* Ensure title is the chosen light grey color */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); /* Slightly larger, darker shadow for prominence */
     /* Adjust shadow values as needed */
     font-weight: 300; /* Matches font-light class, but explicitly setting */
     letter-spacing: 0.05em; /* Adjust letter spacing if needed */
-    /* Optional: Use a different font for headings if linked in index.html */
-    /* font-family: 'Montserrat', sans-serif; */
 }
 
 /* Apply shadow to other text elements that use the text-white class */
 .text-white {
-     /* Color using CSS variable */
-     color: var(--color-primary-light);
-     /* Refined text shadow */
-     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); /* Use rgba for transparency in shadow */
+     color: #f0f0f0; /* Ensure color is consistent with the light grey */
+     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); /* Softer shadow for body text/buttons */
      /* Adjust shadow values as needed */
 }
 
-/* --- Styles for your React App Content Containers --- */
+/* --- Styles for your React App Content Containers (Keep these) --- */
 
 /* Style the container holding your content in pages like About.tsx */
 /* This adds padding, a semi-transparent background, and blur for readability */
@@ -62,20 +55,17 @@ h1 {
     /* Ensure padding is sufficient */
     padding: 2rem; /* Example padding - adjust as needed */
     /* Keep or adjust the semi-transparent background and blur for readability */
-    background-color: rgba(255, 255, 255, 0.1); /* Slightly more transparent white */
-    backdrop-filter: blur(10px); /* Slightly more blur */
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly less transparent white */
+    backdrop-filter: blur(8px); /* Slightly more blur */
     border-radius: 1rem; /* Adjust border radius */
-    /* Ensure text inside this container uses the chosen light grey color */
-    color: var(--color-primary-light);
-    /* Add a subtle box shadow for depth */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    color: #f0f0f0; /* Ensure text inside this container is the chosen light grey color */
 }
 
 /* Ensure your button's text color is set correctly if not inheriting */
-/* .your-button-class { color: var(--color-primary-light); // Example if needed } */
+/* .your-button-class { color: #f0f0f0; // Example if needed } */
 
 /*
-  Styling for spline-viewer is handled in the <style> block in index.html
+  Styling for spline-viewer is now handled in the <style> block in index.html
   or can be added here targeting the spline-viewer element directly.
 */
 /*
@@ -86,6 +76,6 @@ spline-viewer {
     width: 100%;
     height: 100%;
     z-index: 0;
-    // Removed: pointer-events: none;
+    pointer-events: none;
 }
 */
