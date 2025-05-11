@@ -1,0 +1,91 @@
+/* Global styles for the body and root element */
+body {
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    /* Font is now set on body in index.html style block */
+    min-height: 100vh;
+    position: relative;
+    /* Base text color using CSS variable */
+    color: var(--color-primary-light);
+    font-family: 'Roboto', sans-serif; /* Ensure Roboto is applied if body style in index.html is missed */
+    /* CSS Variables are defined in index.html style block now */
+}
+
+#root {
+    position: relative;
+    z-index: 1; /* Ensure #root content is above the Spline background */
+    min-height: 100vh;
+}
+
+/* --- Removed old background styles --- */
+/* .background-container { ... } */
+/* .background-image { ... } */
+
+/* --- Removed Spline React container styles --- */
+/* .spline-background-container { ... } */
+/* .spline-background-container canvas { ... } */
+
+/* --- Removed loading overlay styles --- */
+/* .loading-overlay { ... } */
+
+
+/* --- Text Readability Styles --- */
+
+/* Apply shadow to text elements for readability against the background */
+/* Target the main title (h1) */
+h1 {
+    /* Color using CSS variable */
+    color: var(--color-primary-light);
+    /* Refined text shadow */
+    text-shadow: 2px 2px 8px var(--color-primary-dark); /* Use dark color variable for shadow */
+    /* Adjust shadow values as needed */
+    font-weight: 300; /* Matches font-light class, but explicitly setting */
+    letter-spacing: 0.05em; /* Adjust letter spacing if needed */
+    /* Optional: Use a different font for headings if linked in index.html */
+    /* font-family: 'Montserrat', sans-serif; */
+}
+
+/* Apply shadow to other text elements that use the text-white class */
+.text-white {
+     /* Color using CSS variable */
+     color: var(--color-primary-light);
+     /* Refined text shadow */
+     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); /* Use rgba for transparency in shadow */
+     /* Adjust shadow values as needed */
+}
+
+/* --- Styles for your React App Content Containers --- */
+
+/* Style the container holding your content in pages like About.tsx */
+/* This adds padding, a semi-transparent background, and blur for readability */
+.max-w-3xl.bg-white\/10 { /* This targets the specific div in About.tsx */
+    /* Ensure padding is sufficient */
+    padding: 2rem; /* Example padding - adjust as needed */
+    /* Keep or adjust the semi-transparent background and blur for readability */
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly more transparent white */
+    backdrop-filter: blur(10px); /* Slightly more blur */
+    border-radius: 1rem; /* Adjust border radius */
+    /* Ensure text inside this container uses the chosen light grey color */
+    color: var(--color-primary-light);
+    /* Add a subtle box shadow for depth */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure your button's text color is set correctly if not inheriting */
+/* .your-button-class { color: var(--color-primary-light); // Example if needed } */
+
+/*
+  Styling for spline-viewer is handled in the <style> block in index.html
+  or can be added here targeting the spline-viewer element directly.
+*/
+/*
+spline-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    // Removed: pointer-events: none;
+}
+*/

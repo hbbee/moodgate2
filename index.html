@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOODGATE - Discover Your True Self</title>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.87/build/spline-viewer.js"></script>
+
+    <style>
+        /* Basic styles to ensure body and root are set up */
+        body {
+            margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            /* Set default font for the body */
+            font-family: 'Roboto', sans-serif; /* Use Roboto as the primary font */
+            min-height: 100vh; /* Ensure body takes at least full viewport height */
+            position: relative; /* Needed for z-index on body/root */
+            /* Define CSS Variables for Color Palette */
+            --color-primary-light: #f0f0f0; /* Very light grey for main text/elements */
+            --color-primary-dark: #333; /* Dark grey for shadows/accents */
+            --color-accent-blue: #66b2ff; /* Example accent blue */
+            --color-accent-purple: #b266ff; /* Example accent purple */
+            --color-overlay-vignette: rgba(0, 0, 0, 0.3); /* Dark overlay for vignette */
+        }
+
+        #root {
+            position: relative; /* Ensure #root content is above the background */
+            z-index: 1; /* Higher z-index than the Spline viewer (which is z-index: 0) */
+            min-height: 100vh; /* Ensure #root covers the background height */
+        }
+
+        /* You will need to add padding or a content wrapper inside your app */
+        /* rendered by #root to avoid content being directly behind the edges */
+        /* and add background-color for readability over the Spline scene */
+
+        /* Style the spline-viewer custom element to act as a fixed background */
+        spline-viewer {
+            position: fixed; /* Fix it to the viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Place it behind the #root content (which has z-index: 1) */
+            /* pointer-events: none; /* Optional: Allow clicks/interactions to pass through */
+            /* Removed: pointer-events: none; to allow interaction */
+        }
+
+         /* Subtle Vignette Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allow clicks to pass through */
+            z-index: 0; /* Below content, above spline */
+            /* Radial gradient for vignette effect */
+            background: radial-gradient(ellipse at center, transparent 0%, var(--color-overlay-vignette) 80%);
+        }
+    </style>
+  </head>
+  <body>
+
+    <spline-viewer url="https://prod.spline.design/mwBoDY-6t12z0ilI/scene.splinecode"></spline-viewer>
+
+    <div id="root"></div>
+
+    <script type="module" src="/src/main.tsx"></script>
+
+    </body>
+</html>
